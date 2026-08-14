@@ -1,22 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meus Gastos</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <span class="brand"> Controle de Gastos</span>
+        <div class="links">
+            <a href="{% url 'listar_gastos' %}">Gastos</a>
+            <a href="{% url 'dashboard' %}">Painel</a>
+            <a href="{% url 'criar_gastos' %}">+ Novo</a>
+        </div>
+    </div>
+
     <h1>Meus gastos</h1>
     <ul>
         {% for gasto in gastos %}
-            <a href="{% url 'editar_gasto' gasto.id %}"><li>{{gasto.descricao}}</li></a>
-            <form action="{% url 'excluir_gasto' gasto.id %}" method="POST">
-                {% csrf_token %} 
-                <button>Excluir</button>
-            </form>
+            <li class="gasto-item">
+                <div class="gasto-info">
+                    <a href="{% url 'editar_gasto' gasto.id %}">{{ gasto.descricao }}</a>
+                    <span class="badge">{{ gasto.categoria }}</span>
+                </div>
+                <div class="gasto-right">
+                    <span class="gasto-valor">R$ {{ gasto.valor }}</span>
+                    <form action="{% url 'excluir_gasto' gasto.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Excluir</button>
+                    </form>
+                </div>
+            </li>
         {% endfor %}
     </ul>
-    <form action="{% url 'logout' %}" method="POST">
+
+    <form action="{% url 'logout' %}" method="POST" style="background:none; box-shadow:none; padding:0; margin-top: 20px;">
         {% csrf_token %}
         <button type="submit">Sair</button>
     </form>

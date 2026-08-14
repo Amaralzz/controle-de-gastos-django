@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <span class="brand"> Controle de Gastos</span>
+        <div class="links">
+            <a href="{% url 'listar_gastos' %}">Gastos</a>
+            <a href="{% url 'dashboard' %}">Painel</a>
+            <a href="{% url 'criar_gastos' %}">+ Novo</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <div class="label">Total gasto</div>
+        <div class="amount">R$ {{ total_geral }}</div>
+    </div>
+
+    <div class="chart-card">
+        <canvas id="grafico"></canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script>
+        const ctx = document.getElementById('grafico');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: {{ categorias|safe }},
+                datasets: [{
+                    label: 'Gastos por categoria',
+                    data: {{ valores|safe }},
+                    backgroundColor: ['#7C3AED', '#EC4899', '#A3E635', '#F43F5E', '#38BDF8', '#FBBF24'],
+                    borderWidth: 0,
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

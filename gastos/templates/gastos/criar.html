@@ -1,11 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <span class="brand"> Controle de Gastos</span>
+        <div class="links">
+            <a href="{% url 'listar_gastos' %}">Gastos</a>
+            <a href="{% url 'dashboard' %}">Painel</a>
+            <a href="{% url 'criar_gastos' %}">+ Novo</a>
+        </div>
+    </div>
     <h1>Novo gasto</h1>
     <form method="POST">
         {% csrf_token %}
