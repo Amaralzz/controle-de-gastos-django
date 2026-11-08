@@ -4,7 +4,7 @@ Aplicação web para registro e visualização de gastos pessoais, construída c
 
 ## Funcionalidades
 
-- Cadastro de usuário e login/logout (cada usuário só visualiza seus próprios dados)
+- Login/logout com contas criadas pelo admin do Django (cada usuário só visualiza seus próprios dados)
 - CRUD completo de gastos (criar, listar, editar, excluir)
 - Painel com total gasto e gráfico de distribuição por categoria (Chart.js)
 - Interface responsiva com design próprio
@@ -19,14 +19,14 @@ Aplicação web para registro e visualização de gastos pessoais, construída c
 ## Como rodar localmente
 
 ```bash
-git clone <url-do-repositorio>
-cd controle_gastos
+git clone https://github.com/Amaralzz/controle-de-gastos-django.git
+cd controle-de-gastos-django
 
 python -m venv venv
 venv\Scripts\activate        # Windows
 # source venv/bin/activate   # Linux/Mac
 
-pip install django
+pip install -r requirements.txt
 
 python manage.py migrate
 python manage.py createsuperuser
